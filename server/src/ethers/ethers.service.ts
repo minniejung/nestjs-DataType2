@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import {
   ethers,
   zeroPadValue,
@@ -7,8 +7,8 @@ import {
   isBytesLike,
   toUtf8Bytes,
   BytesLike,
-} from 'ethers';
-import { abi, address } from '../../abis/DataType2.json';
+} from "ethers";
+import { abi, address } from "../../abis/DataType2.json";
 
 @Injectable()
 export class EthersService {
@@ -17,8 +17,8 @@ export class EthersService {
   private contract: ethers.Contract;
 
   constructor(private configService: ConfigService) {
-    const rpcUrl = this.configService.get<string>('RPC_URL');
-    const privateKey = this.configService.get<string>('PRIVATE_KEY');
+    const rpcUrl = this.configService.get<string>("RPC_URL");
+    const privateKey = this.configService.get<string>("PRIVATE_KEY");
 
     this.provider = new ethers.JsonRpcProvider(rpcUrl);
     this.signer = new ethers.Wallet(privateKey!, this.provider);
@@ -45,72 +45,95 @@ export class EthersService {
 
   async getMessage() {
     // Todo: getMessage의 값을 리턴합니다.
+    return await this.contract.getMessage();
   }
 
   async setMessage(newMessage: string) {
     // Todo: setMessage의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.setMessage(newMessage);
+    return tx.wait();
   }
 
   async getNumber(index: number) {
     // Todo: getNumber의 값을 리턴합니다.
+    return await this.contract.getNumber(index);
   }
 
   async addNumber(num: number) {
     // Todo: addNumber의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.addNumber(num);
+    return tx.wait();
   }
 
   async getNumbers() {
     // Todo: getNumbers의 값을 리턴합니다.
+    return await this.contract.getNumbers();
   }
 
   async addName(name: string) {
     // Todo: addName의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.addName(name);
+    return tx.wait();
   }
 
   async getNames() {
     // Todo: getNames의 값을 리턴합니다.
+    return await this.contract.getNames();
   }
 
   async setBalance(address: string, value: number) {
     // Todo: setBalance의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.setBalance(address, value);
+    return tx.wait();
   }
 
   async getBalance(address: string) {
     // Todo: getBalance의 값을 리턴합니다.
+    return await this.contract.getBalance(address);
   }
 
   async getUser(address: string) {
     // Todo: getUser의 값을 리턴합니다.
+    return await this.contract.getUser(address);
   }
 
   async setUser(address: string, name: string, age: number) {
     // Todo: setUser의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.setUser(address, name, age);
+    return tx.wait();
   }
 
   async getDynamicData() {
     // Todo: getDynamicData의 값을 리턴합니다.
+    return await this.contract.getDynamicData();
   }
 
   async setDynamicData(data: BytesLike) {
     // Todo: setDynamicData의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.setDynamicData(data);
+    return tx.wait();
   }
 
   async getFixedData() {
     // Todo: getFixedData의 값을 리턴합니다.
+    return await this.contract.getFixedData();
   }
 
   async setFixedData(data: string) {
     // Todo: setFixedData의 값을 리턴합니다.
     // ⚠️ setter함수는 tx 확정 후 영수증을 리턴합니다.(wait)
+    const tx = await this.contract.setFixedData(data);
+    return tx.wait();
   }
 
   async getDetails() {
     // Todo: getDetails의 값을 리턴합니다.
+    return await this.contract.getDetails();
   }
 }
