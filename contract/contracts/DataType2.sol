@@ -36,11 +36,12 @@ contract DataType2 {
     }
 
     function setUser(address _addr, string memory _name, uint256 _age) public {
-        require(
-            keccak256(abi.encodePacked(_name)) !=
-                keccak256(abi.encodePacked("")),
-            "Name cannot be empty"
-        );
+        // require(
+        //     keccak256(abi.encodePacked(_name)) !=
+        //         keccak256(abi.encodePacked("")),
+        //     "Name cannot be empty"
+        // );
+        require(bytes(_name).length > 0, "Name cannot be empty");
         users[_addr] = User({name: _name, age: _age});
     }
 

@@ -51,7 +51,7 @@ export class Datatype2Service {
       // ⚠️ bigint 타입은 JSON으로 변환 시 string으로 변환 필요
       const res = await this.ethersService.getNumbers();
 
-      const formatted = Array.isArray(res) ? res.map((v) => v.toString()) : [];
+      const formatted = res.map((v) => v.toString());
       return formatted;
     } catch (error) {
       //  Todo: 에러를 응답합니다.(exceptions.createBadRequestException(error.message))
@@ -102,13 +102,14 @@ export class Datatype2Service {
       if (address && name === undefined && age === undefined) {
         const details = await this.ethersService.getUser(address);
 
-        const parsed = JSON.parse(
-          JSON.stringify(details, (key, value) =>
-            typeof value === "bigint" ? value.toString() : value
-          )
-        );
+        // const parsed = JSON.parse(
+        //   JSON.stringify(details, (key, value) =>
+        //     typeof value === "bigint" ? value.toString() : value
+        //   )
+        // );
 
-        return parsed;
+        // return parsed;
+        return details.map((v) => v.toString());
       }
       if (address && name !== undefined && age !== undefined)
         return await this.ethersService.setUser(address, name, age);
